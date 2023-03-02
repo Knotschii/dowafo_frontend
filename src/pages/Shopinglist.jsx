@@ -1,38 +1,40 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 function getShopinglist() {
-    return axios.get("https://dowafo-be.onrender.com/shopinglist")
-    .then(res => res.data)
-    .catch(err => console.log(err));
+  return axios
+    .get("https://dowafo-be.onrender.com/shopinglist")
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
 }
 
 const Shopinglist = () => {
-    const [shopinglist, setShopinglist] = useState([]);
+  const [shopinglist, setShopinglist] = useState([]);
 
-    useEffect(() =>{
-        getShopinglist().then(data => setShopinglist(data.shopinglist));
-    },[]);
+  useEffect(() => {
+    getShopinglist().then((data) => setShopinglist(data.shopinglist));
+  }, []);
 
-    console.log('state',shopinglist)
+  console.log("state", shopinglist);
 
-    return (
-        <div>
-            <h1>My Shopinglists</h1>
-            <ul>
-                {shopinglist.length && shopinglist.map(list =>(
-                    <li key={list._id}>{list.shopinglistName}</li>
-                ))}
-            </ul>  
-            <button><Link to ="/addshopinglist">Add new Shopinglist</Link></button>
-        </div>
-        
-    );
-
-    
+  return (
+    <div>
+      <h1>My Shopinglists</h1>
+      <ul>
+        {shopinglist.length &&
+          shopinglist.map((list) => (
+            <Link to={`/shopinglist/${list._id}`}>
+              <li key={list._id}>{list.shopinglistName}</li>
+            </Link>
+          ))}
+      </ul>
+      <button>
+        <Link to="/addshopinglist">Add new Shopinglist</Link>
+      </button>
+    </div>
+  );
 };
 
 /*
@@ -75,5 +77,4 @@ const Shopinglists = () => {
 }
 */
 
-
-export default Shopinglist
+export default Shopinglist;

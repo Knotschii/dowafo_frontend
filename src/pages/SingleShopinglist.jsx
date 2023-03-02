@@ -1,36 +1,63 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Shopinglist from "./Shopinglist";
 
-function getSingleShopinglist() {
-    return axios.get("https://dowafo-be.onrender.com/shopinglist")
-    .then(res => res.data.shopinglist.id)
-    .catch(err => console.log(err));
-}
 //EASTEREGG!!! xD
-    const SingleShopinglist =() =>{
-        const [singleshopinglist, setSingleShopinglist] = useState([]);
+const SingleShopinglist = () => {
+  const [singleshopinglist, setSingleShopinglist] = useState();
 
-    useEffect(() =>{
-        getSingleShopinglist().then(data => setSingleShopinglist(data.shopinglist.id));
-        },[]);
-        
-    return(
-        <div>
-            <h1>{SingleShopinglist.shopinglistName}</h1>
-            <ul>
-                {
-                   singleshopinglist.length && singleshopinglist.map(shopinglist =>
-                        <li key={shopinglist._id}>{shopinglist.shopinglistName}</li>)
-                }
-            </ul>
-        </div>
-    )
-}
+  const { _id } = useParams();
 
-export default SingleShopinglist
+  console.log(useParams());
 
+  function getSingleShopinglist() {
+    return axios
+      .get(`https://dowafo-be.onrender.com/shopinglist/${_id}`)
+      .then((res) => {
+        setSingleShopinglist(res.data);
+        console.log("res data", res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    getSingleShopinglist().then((data) =>
+      setSingleShopinglist(data.shopinglist.id)
+    );
+  }, []);
+
+  console.log("single list", singleshopinglist);
+
+  return singleshopinglist ? (
+    <div>
+      <h1>{singleshopinglist.shopinglistName}</h1>
+      <ul>
+        {singleshopinglist.items.length ? (
+          singleshopinglist.items.map((item) => (
+            <>
+              {" "}
+              {/* amount, ... */}
+              <li key={item._id}>{item.itemName}</li>
+              <button>edit</button>
+              {/* Request to endpoint "move to warehouse" */}
+              <button>buy</button>
+              {/* Request to delete item */}
+              <button>delete</button>
+            </>
+          ))
+        ) : (
+          <h1>no items :(</h1>
+        )}
+      </ul>
+    </div>
+  ) : (
+    <h1>...loading</h1>
+  );
+};
+
+export default SingleShopinglist;
 
 /*
 const getSingleShopinglist = async (id) =>{
