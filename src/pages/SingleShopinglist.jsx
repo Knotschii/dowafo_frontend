@@ -8,7 +8,7 @@ function getSingleShopinglist() {
     .then(res => res.data.shopinglist.id)
     .catch(err => console.log(err));
 }
-
+//EASTEREGG!!! xD
     const SingleShopinglist =() =>{
         const [singleshopinglist, setSingleShopinglist] = useState([]);
 
