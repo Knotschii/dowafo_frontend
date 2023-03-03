@@ -19,15 +19,29 @@ const Shopinglist = () => {
 
   console.log("state", shopinglist);
 
+  const handleDelete = (id) => {
+    axios
+    .delete(`https://dowafo-be.onrender.com/shopinglist/${id}`)
+    .then((res) =>{
+      console.log("Shopinglist deleted", res);
+      setShopinglist(shopinglist.filter((list) => list._id !== id));
+    })
+    .catch((err) => console.log(err))
+  };
+
   return (
     <div>
       <h1>My Shopinglists</h1>
       <ul>
         {shopinglist.length &&
           shopinglist.map((list) => (
-            <Link to={`/shopinglist/${list._id}`}>
-              <li key={list._id}>{list.shopinglistName}</li>
-            </Link>
+            <li key={list._id}>
+              <Link to ={`/shopinglist/${list._id}`}>{list.shopinglistName}</Link>
+              <button onClick={() => handleDelete(list._id)}>Delete List</button>
+            </li>
+          //  <Link to={`/shopinglist/${list._id}`}>
+          //    <li key={list._id}>{list.shopinglistName}</li>
+          //  </Link>
           ))}
       </ul>
       <button>
