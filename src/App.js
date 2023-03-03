@@ -11,6 +11,7 @@ import AddShopinglist from './pages/AddShopinglist';
 import DeleteShopinglist from './pages/DeleteShopinglist';
 import SingleShopinglist from './pages/SingleShopinglist';
 import UpdateShopinglist from './pages/UpdateShopinglist';
+import AddItem from './pages/AddItem';
 
 
 
@@ -38,6 +39,7 @@ function App() {
       <Route path="/deleteshopinglist" element = {<DeleteShopinglist/>}/>
       <Route path="/updateshopinglist" element = {<UpdateShopinglist/>}/>
       <Route path="/shopinglist/:_id" element= {<SingleShopinglist/>}/>
+      <Route path="/shopinglist/:_id" element= {<AddItem/>}/>
       
         <Route path="/" element={<Home loggedIn={loggedIn} />} />
         <Route

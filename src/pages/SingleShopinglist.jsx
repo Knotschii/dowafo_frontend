@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Shopinglist from "./Shopinglist";
+import { useParams , useNavigate} from "react-router-dom";
+
+
 
 //EASTEREGG!!! xD
 const SingleShopinglist = () => {
@@ -30,6 +31,9 @@ const SingleShopinglist = () => {
 
   console.log("single list", singleshopinglist);
 
+  
+  
+
   return singleshopinglist ? (
     <div>
       <h1>{singleshopinglist.shopinglistName}</h1>
@@ -39,26 +43,36 @@ const SingleShopinglist = () => {
             <>
               {" "}
               {/* amount, ... */}
-              <li key={item._id}>{item.itemName}</li>
+              <li key={item._id}>{item.itemName} {item.itemCount} x</li>
               <button>edit</button>
               {/* Request to endpoint "move to warehouse" */}
               <button>buy</button>
               {/* Request to delete item */}
               <button>delete</button>
+        
             </>
+            
+            
           ))
         ) : (
           <h1>no items :(</h1>
         )}
       </ul>
+      
+      
     </div>
+    
   ) : (
     <h1>...loading</h1>
   );
+  
+
+
+
 };
 
-export default SingleShopinglist;
 
+export default SingleShopinglist
 /*
 const getSingleShopinglist = async (id) =>{
     try{
