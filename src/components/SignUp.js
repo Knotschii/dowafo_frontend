@@ -10,11 +10,14 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/auth/signup", {
-        username,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://dowafo-be.onrender.com/auth/signup",
+        {
+          username,
+          email,
+          password,
+        }
+      );
       console.log(res);
       setMessage(res.data);
       setUsername("");

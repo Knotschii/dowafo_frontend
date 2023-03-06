@@ -1,17 +1,13 @@
 import React from "react";
 import axios from "axios";
+import AddItem from "./AddItem";
 import { useState, useEffect } from "react";
-import { useParams , useNavigate} from "react-router-dom";
-
-
+import { useParams, useNavigate } from "react-router-dom";
 
 //EASTEREGG!!! xD
 const SingleShopinglist = () => {
   const [singleshopinglist, setSingleShopinglist] = useState();
-
-  const [itemName, setItemName] = useState([]);
-  const [itemCount, setItemCount] = useState([]);
-
+  const [clicked, setClicked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,21 +29,30 @@ const SingleShopinglist = () => {
     getSingleShopinglist().then((data) =>
       setSingleShopinglist(data.shopinglist.id)
     );
-  }, []);
+  }, [clicked]);
+
+  const handlebuy = (value) => {
+    console.log("helloooooooo", value);
+    axios.put(
+      `http://localhost:5000/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
+      { id: value }
+    );
+    setClicked(!clicked);
+  };
+
+  const handleDelete = (value) => {
+    axios
+      .delete(`http://localhost:5000/items/${value}`, {
+        listid: singleshopinglist._id,
+      })
+      .then((res) => {
+        console.log("deleted", res);
+        setClicked(!clicked);
+      })
+      .catch((err) => console.log(err));
+  };
 
   console.log("single list", singleshopinglist);
-
-  function handleAddItemSubmit(event){
-    event.preventDefault();
-    axios.post(`https://dowafo-be.onrender.com/shopinglist/${_id}/items`)
-    const newItem = {
-      itemName: itemName,
-      itemCount: itemCount
-    };
-
-    
-  }
-  
 
   return singleshopinglist ? (
     <div>
@@ -58,36 +63,44 @@ const SingleShopinglist = () => {
             <>
               {" "}
               {/* amount, ... */}
-              <li key={item._id}>{item.itemName} {item.itemCount} x</li>
-              <button>edit</button>
+              <li key={item._id}>
+                {item.itemName} {item.itemCount} x
+              </li>
+              {/* <button>edit</button> */}
               {/* Request to endpoint "move to warehouse" */}
-              <button>buy</button>
+              <button
+                onClick={() => {
+                  handlebuy(item._id);
+                }}
+              >
+                buy
+              </button>
               {/* Request to delete item */}
-              <button>delete</button>
-        
+              <button
+                onClick={() => {
+                  handleDelete(item._id);
+                }}
+              >
+                delete
+              </button>
             </>
-            
-            
           ))
         ) : (
           <h1>no items :(</h1>
         )}
       </ul>
-      
-      
+      <AddItem
+        singleshopinglist={singleshopinglist}
+        setClicked={setClicked}
+        clicked={clicked}
+      />
     </div>
-    
   ) : (
     <h1>...loading</h1>
   );
-  
-
-
-
 };
 
-
-export default SingleShopinglist
+export default SingleShopinglist;
 /*
 const getSingleShopinglist = async (id) =>{
     try{

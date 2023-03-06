@@ -1,19 +1,18 @@
-import './App.css';
+import "./App.css";
 import { useState, useEffect } from "react";
 import TheSideNav from "./components/TheSideNav";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./components/Home";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Shopinglists from './pages/Shopinglist';
-import AddShopinglist from './pages/AddShopinglist';
-import DeleteShopinglist from './pages/DeleteShopinglist';
-import SingleShopinglist from './pages/SingleShopinglist';
-import UpdateShopinglist from './pages/UpdateShopinglist';
-import AddItem from './pages/AddItem';
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Shopinglists from "./pages/Shopinglist";
+import AddShopinglist from "./pages/AddShopinglist";
+import DeleteShopinglist from "./pages/DeleteShopinglist";
+import SingleShopinglist from "./pages/SingleShopinglist";
+import UpdateShopinglist from "./pages/UpdateShopinglist";
+import AddItem from "./pages/AddItem";
+import Stock from "./pages/Stock";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,19 +27,20 @@ function App() {
   return (
     <Router>
       <TheSideNav
-      loggedIn={loggedIn}
-      setLoggedIn={setLoggedIn}
-      setToken={setToken}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        setToken={setToken}
       />
       <Routes>
         {/*SHOPINGLIST */}
-      <Route path="/shopinglist" element = {<Shopinglists/>} />
-      <Route path="/addshopinglist" element ={<AddShopinglist/>} />
-      <Route path="/deleteshopinglist" element = {<DeleteShopinglist/>}/>
-      <Route path="/updateshopinglist" element = {<UpdateShopinglist/>}/>
-      <Route path="/shopinglist/:_id" element= {<SingleShopinglist/>}/>
-      <Route path="/shopinglist/:_id" element= {<AddItem/>}/>
-      
+        <Route path="/shopinglist" element={<Shopinglists />} />
+        <Route path="/addshopinglist" element={<AddShopinglist />} />
+        <Route path="/deleteshopinglist" element={<DeleteShopinglist />} />
+        <Route path="/updateshopinglist" element={<UpdateShopinglist />} />
+        <Route path="/shopinglist/:_id" element={<SingleShopinglist />} />
+        <Route path="/shopinglist/:_id" element={<AddItem />} />
+        <Route path="/stock" element={<Stock />} />
+
         <Route path="/" element={<Home loggedIn={loggedIn} />} />
         <Route
           path="/login"
@@ -50,18 +50,17 @@ function App() {
               setLoggedIn={setLoggedIn}
               setToken={setToken}
             />
-            
           }
         />
         <Route path="/signup" element={<SignUp />} />
         {/* protected routes*/}
-        <Route path="/protected" element={<PrivateRoute loggedIn={loggedIn} />}>
-          
-        </Route>
+        <Route
+          path="/protected"
+          element={<PrivateRoute loggedIn={loggedIn} />}
+        ></Route>
       </Routes>
     </Router>
   );
 }
-  
 
 export default App;
