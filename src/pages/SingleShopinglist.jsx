@@ -9,6 +9,12 @@ import { useParams , useNavigate} from "react-router-dom";
 const SingleShopinglist = () => {
   const [singleshopinglist, setSingleShopinglist] = useState();
 
+  const [itemName, setItemName] = useState([]);
+  const [itemCount, setItemCount] = useState([]);
+
+
+  const navigate = useNavigate();
+
   const { _id } = useParams();
 
   console.log(useParams());
@@ -31,7 +37,16 @@ const SingleShopinglist = () => {
 
   console.log("single list", singleshopinglist);
 
-  
+  function handleAddItemSubmit(event){
+    event.preventDefault();
+    axios.post(`https://dowafo-be.onrender.com/shopinglist/${_id}/items`)
+    const newItem = {
+      itemName: itemName,
+      itemCount: itemCount
+    };
+
+    
+  }
   
 
   return singleshopinglist ? (
