@@ -13,6 +13,7 @@ import SingleShopinglist from "./pages/SingleShopinglist";
 import UpdateShopinglist from "./pages/UpdateShopinglist";
 import AddItem from "./pages/AddItem";
 import Stock from "./pages/Stock";
+import Landing from "./components/Landing";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
