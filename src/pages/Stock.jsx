@@ -106,6 +106,7 @@ export default function Stock() {
               </div>
             );
           })}
+          {/*
           <div>
             <input type ="text" placeholder="item Name" onChange={handleAddItem} name="itemName"></input>
             <input type="date" placeholder="expiry Date" onChange={handleAddItem} name ="expDate"></input>
