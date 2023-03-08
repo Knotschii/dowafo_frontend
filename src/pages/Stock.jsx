@@ -9,6 +9,9 @@ export default function Stock() {
   const [itemName, setItemName] = useState("");
   const [expDate, setExpDate] = useState("");
   const [clicked, setClicked] = useState(false);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [updatedItemName, setUpdatedItemName] = useState("");
+  const [updatedItemExpDate, setUpdatedItemExpDate] = useState(""); 
 
   const { _id } = useParams();
   console.log(useParams());
@@ -29,25 +32,14 @@ export default function Stock() {
 
   const handleEditItem = async (itemId) => {
     try {
-      const updatedItem = { itemName, expDate };
-      await axios.put(
-        `https://dowafo-be.onrender.com/items/${itemId}`,
-        updatedItem
+      
+      await handleEditItem(itemId, updatedItemName, updatedItemExpDate
       );
-      // Aktualisiere Artikel in state
-      setWarehouse((prevState) => {
-        const updatedItems = prevState.items.map((item) => {
-          if (item._id === itemId) {
-            return { ...item, ...updatedItem };
-          } else {
-            return item;
-          }
-        });
-        return { ...prevState, items: updatedItems };
-      });
-    } catch (error) {
-      console.log(error);
-    }
+      setUpdatedItemExpDate("");
+      setUpdatedItemName("");
+  }catch(err){
+    console.log(err)
+  }
   };
 
   const handleDeleteItem = (value) => {
@@ -59,6 +51,7 @@ export default function Stock() {
       .then((res) => {
         console.log("deleted", res);
         setClicked(!clicked);
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -84,13 +77,14 @@ export default function Stock() {
   };
 
   console.log("Warehouse", warehouse);
+  
 
   return (
     warehouse && (
       <div>
         <h1>Sians Stock</h1>
         {warehouse.items.length &&
-          warehouse.items.map((item) => {
+          warehouse.items.map((item, index) => {
             const expDate = moment(item.expDate);
             //const daysLeft = Math.ceil(moment.duration(expDate.diff(moment())).asDays());
             const daysLeft = moment(expDate).isValid()
@@ -98,25 +92,29 @@ export default function Stock() {
               : "undefined";
 
             return (
-              <div key={item._id}>
-                <h4>{item.itemName}</h4>
-                <p>Time left: ({daysLeft} days)</p>
-                <button onClick={() => {handleEditItem(item._id);}}>Edit</button>
-                <button onClick={() =>{ handleDeleteItem(item._id);}}>Delete</button>
-              </div>
-            );
-          })}
-          {/*
-          <div>
-            <input type ="text" placeholder="item Name" onChange={handleAddItem} name="itemName"></input>
-            <input type="date" placeholder="expiry Date" onChange={handleAddItem} name ="expDate"></input>
-        <button onClick={handleAddItem}>Add Item</button>
-        </div>
-        */ }
-        
-      </div>
-    )
-  );
+              <div key={index}>
+               <h4>{item.itemName}</h4>
+              <p>Time left: ({daysLeft} days)</p>
+              <input
+                type="text"
+                placeholder="New item name"
+                value={itemName}
+                onChange={(e) => setItemName(e.target.value)}
+              />
+              <input
+                type="date"
+                placeholder="New expiry date"
+                value={expDate}
+                onChange={(e) => setExpDate(e.target.value)}
+              />
+              <button onClick={() => {handleEditItem(item._id);}}>Edit</button>
+              <button onClick={() =>{ handleDeleteItem(item._id);}}>Delete</button>
+            </div>
+          );
+        })}
+    </div>
+  )
+);
 }
 
 /*
