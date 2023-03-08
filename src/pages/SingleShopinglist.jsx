@@ -52,7 +52,7 @@ const SingleShopinglist = () => {
 
   const handleDelete = (value) => {
     axios
-      .delete(`http://localhost:5000/items/${value}`, {
+      .delete(`https://dowafo-be.onrender.com/items/${value}`, {
         listid: singleshopinglist._id,
       })
       .then((res) => {
@@ -83,7 +83,7 @@ const SingleShopinglist = () => {
                   handlebuy(item._id);
                 }}
               >
-                buy
+                Send to stock
               </button>
               {/* Request to delete item */}
               <button
