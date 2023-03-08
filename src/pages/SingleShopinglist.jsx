@@ -16,20 +16,30 @@ const SingleShopinglist = () => {
   console.log(useParams());
 
   function getSingleShopinglist() {
-    return axios
-      .get(`https://dowafo-be.onrender.com/shopinglist/${_id}`)
-      .then((res) => {
-        setSingleShopinglist(res.data);
-        console.log("res data", res.data);
-      })
-      .catch((err) => console.log(err));
+    return (
+      axios
+        .get(`https://dowafo-be.onrender.com/shopinglist/${_id}`)
+        // .get(`http://localhost:5000/shopinglist/${_id}`)
+        .then((res) => {
+          setSingleShopinglist(res.data);
+          console.log("res data", res.data);
+        })
+        .catch((err) => console.log(err))
+    );
   }
 
   useEffect(() => {
-    getSingleShopinglist().then((data) =>
-      setSingleShopinglist(data.shopinglist.id)
-    );
+    getSingleShopinglist();
   }, [clicked]);
+
+  // const handlebuy = (value) => {
+  //   console.log("helloooooooo", value);
+  //   axios.put(
+  //     `http://localhost:5000/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
+  //     `https://dowafo-be.onrender.com/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
+  //     { id: value }
+  //   );
+  // };
 
   const handlebuy = (value) => {
     console.log("helloooooooo", value);
@@ -42,7 +52,7 @@ const SingleShopinglist = () => {
 
   const handleDelete = (value) => {
     axios
-      .delete(`https://dowafo-be.onrender.com/items/${value}`, {
+      .delete(`http://localhost:5000/items/${value}`, {
         listid: singleshopinglist._id,
       })
       .then((res) => {
