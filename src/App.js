@@ -39,9 +39,11 @@ function App() {
         <Route path="/updateshopinglist" element={<UpdateShopinglist />} />
         <Route path="/shopinglist/:_id" element={<SingleShopinglist />} />
         <Route path="/shopinglist/:_id" element={<AddItem />} />
+
+        
         <Route path="/stock" element={<Stock />} />
 
-        <Route path="/" element={<Home loggedIn={loggedIn} />} />
+        <Route path="/home" element={<Home loggedIn={loggedIn} />} />
         <Route
           path="/login"
           element={
