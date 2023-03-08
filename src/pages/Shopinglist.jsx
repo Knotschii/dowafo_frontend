@@ -3,15 +3,15 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function getShopinglist() {
-  return axios
-    .get("https://dowafo-be.onrender.com/shopinglist")
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
-}
-
 const Shopinglist = () => {
   const [shopinglist, setShopinglist] = useState([]);
+
+  function getShopinglist() {
+    return axios
+      .get("https://dowafo-be.onrender.com/shopinglist")
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     getShopinglist().then((data) => setShopinglist(data.shopinglist));
@@ -21,12 +21,12 @@ const Shopinglist = () => {
 
   const handleDelete = (id) => {
     axios
-    .delete(`https://dowafo-be.onrender.com/shopinglist/${id}`)
-    .then((res) =>{
-      console.log("Shopinglist deleted", res);
-      setShopinglist(shopinglist.filter((list) => list._id !== id));
-    })
-    .catch((err) => console.log(err))
+      .delete(`https://dowafo-be.onrender.com/shopinglist/${id}`)
+      .then((res) => {
+        console.log("Shopinglist deleted", res);
+        setShopinglist(shopinglist.filter((list) => list._id !== id));
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -36,12 +36,16 @@ const Shopinglist = () => {
         {shopinglist.length &&
           shopinglist.map((list) => (
             <li key={list._id}>
-              <Link to ={`/shopinglist/${list._id}`}>{list.shopinglistName}</Link>
-              <button onClick={() => handleDelete(list._id)}>Delete List</button>
+              <Link to={`/shopinglist/${list._id}`}>
+                {list.shopinglistName}
+              </Link>
+              <button onClick={() => handleDelete(list._id)}>
+                Delete List
+              </button>
             </li>
-          //  <Link to={`/shopinglist/${list._id}`}>
-          //    <li key={list._id}>{list.shopinglistName}</li>
-          //  </Link>
+            //  <Link to={`/shopinglist/${list._id}`}>
+            //    <li key={list._id}>{list.shopinglistName}</li>
+            //  </Link>
           ))}
       </ul>
       <button>

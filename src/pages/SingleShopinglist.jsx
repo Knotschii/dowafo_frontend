@@ -16,25 +16,27 @@ const SingleShopinglist = () => {
   console.log(useParams());
 
   function getSingleShopinglist() {
-    return axios
-      .get(`https://dowafo-be.onrender.com/shopinglist/${_id}`)
-      .then((res) => {
-        setSingleShopinglist(res.data);
-        console.log("res data", res.data);
-      })
-      .catch((err) => console.log(err));
+    return (
+      axios
+        // .get(`https://dowafo-be.onrender.com/shopinglist/${_id}`)
+        .get(`http://localhost:5000/shopinglist/${_id}`)
+        .then((res) => {
+          setSingleShopinglist(res.data);
+          console.log("res data", res.data);
+        })
+        .catch((err) => console.log(err))
+    );
   }
 
   useEffect(() => {
-    getSingleShopinglist().then((data) =>
-      setSingleShopinglist(data.shopinglist.id)
-    );
+    getSingleShopinglist();
   }, [clicked]);
 
   const handlebuy = (value) => {
     console.log("helloooooooo", value);
     axios.put(
-      `https://dowafo-be.onrender.com/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
+      `http://localhost:5000/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
+      // `https://dowafo-be.onrender.com/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
       { id: value }
     );
     setClicked(!clicked);
@@ -53,6 +55,7 @@ const SingleShopinglist = () => {
   };
 
   console.log("single list", singleshopinglist);
+  console.log("clicked", clicked);
 
   return singleshopinglist ? (
     <div>
