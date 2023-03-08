@@ -34,7 +34,7 @@ const SingleShopinglist = () => {
   const handlebuy = (value) => {
     console.log("helloooooooo", value);
     axios.put(
-      `http://localhost:5000/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
+      `https://dowafo-be.onrender.com/shoppinglist/${singleshopinglist._id}/moveto/63fcdeb7990519e93c118aa1`,
       { id: value }
     );
     setClicked(!clicked);
@@ -42,7 +42,7 @@ const SingleShopinglist = () => {
 
   const handleDelete = (value) => {
     axios
-      .delete(`http://localhost:5000/items/${value}`, {
+      .delete(`https://dowafo-be.onrender.com/items/${value}`, {
         listid: singleshopinglist._id,
       })
       .then((res) => {

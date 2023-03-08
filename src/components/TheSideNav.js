@@ -17,9 +17,9 @@ className="thesidenav"
     <SideNav.Nav defaultSelected="home">
 
         
-            <NavItem eventKey="home">
+            <NavItem eventKey="home" style={{color: "black"}}>
             
-                <NavIcon><i className="fa fa-fw fa-home" sytle={{fontSize: "1.5em"}}></i>
+                <NavIcon><i className="fa fa-fw fa-home" sytle={{fontSize: "2.5em"}}></i>
                 </NavIcon>
                 <NavText>Home</NavText>
                 

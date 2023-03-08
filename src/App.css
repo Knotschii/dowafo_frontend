@@ -1,11 +1,14 @@
 .thesidenav {
   text-align: center;
-  background-color: #faab78 !important;
+  background-color: #548f14 !important;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(21, 21, 21) !important;
 }
 
 body {
   display: flex;
-  justify-content: center;
+  justify-content:flex-end;
+  background-color: #faab78;
 }
+
+

@@ -14,8 +14,8 @@ const AddItem = ({ singleshopinglist, setClicked, clicked }) => {
     console.log("clicked");
     event.preventDefault();
     axios.post(
-      // `https://dowafo-be.onrender.com/additem/${singleshopinglist._id}`,
-      `http://localhost:5000/additem/${singleshopinglist._id}`,
+       `https://dowafo-be.onrender.com/additem/${singleshopinglist._id}`,
+      //`http://localhost:5000/additem/${singleshopinglist._id}`,
       { itemName, itemCount }
     );
     setClicked(!clicked);
