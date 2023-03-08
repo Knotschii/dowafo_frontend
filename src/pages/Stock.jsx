@@ -98,15 +98,19 @@ export default function Stock() {
                 <h4>{item.itemName}</h4>
                 <p>Time left: ({daysLeft} days)</p>
                 <button onClick={() => {handleEditItem(item._id);}}>Edit</button>
-                <button onClick={() =>{ handleDeleteItem(item._id);}}>Delete</button>
+                <button onClick={() =>{ handleDeleteItem(item._id);}}>Delete</button> 
+              
               </div>
             );
           })}
+         {/*
           <div>
             <input type ="text" placeholder="item Name" onChange={handleAddItem} name="itemName"></input>
             <input type="date" placeholder="expiry Date" onChange={handleAddItem} name ="expDate"></input>
         <button onClick={handleAddItem}>Add Item</button>
         </div>
+        */ }
+        
       </div>
     )
   );

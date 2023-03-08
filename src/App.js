@@ -40,7 +40,7 @@ function App() {
         <Route path="/shopinglist/:_id" element={<SingleShopinglist />} />
         <Route path="/shopinglist/:_id" element={<AddItem />} />
 
-        
+        <Route path="/" element={<Landing />} />
         <Route path="/stock" element={<Stock />} />
 
         <Route path="/home" element={<Home loggedIn={loggedIn} />} />
